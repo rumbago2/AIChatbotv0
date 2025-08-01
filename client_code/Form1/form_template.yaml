@@ -5,7 +5,8 @@ components:
       name: label_1
       properties: {text: 'Enter your question or prompt :'}
       type: Label
-    - layout_properties: {grid_position: 'WBMOAC,QHRZRL'}
+    - event_bindings: {pressed_enter: user_prompt_pressed_enter}
+      layout_properties: {grid_position: 'WBMOAC,QHRZRL'}
       name: user_prompt
       properties:
         margin: ['8', '2', '16', '2']
