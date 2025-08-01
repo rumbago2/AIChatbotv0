@@ -1,0 +1,56 @@
+components:
+- components:
+  - components:
+    - layout_properties: {grid_position: 'EDXCFW,AWYVVO'}
+      name: label_1
+      properties: {text: 'Sepal length:'}
+      type: Label
+    - layout_properties: {grid_position: 'WBMOAC,QHRZRL'}
+      name: sepal_length
+      properties: {placeholder: cm}
+      type: TextBox
+    - layout_properties: {grid_position: 'CGYAPA,NLMTQI'}
+      name: label_2
+      properties: {text: 'sepal width:'}
+      type: Label
+    - layout_properties: {grid_position: 'HBMYCB,NMERPQ'}
+      name: sepal_width
+      properties: {placeholder: cm}
+      type: TextBox
+    - layout_properties: {grid_position: 'CUXHBI,WMETQS'}
+      name: petal_length
+      properties: {placeholder: cm}
+      type: TextBox
+    - layout_properties: {grid_position: 'DSEVOD,FGKREQ'}
+      name: label_4
+      properties: {text: 'petal width:'}
+      type: Label
+    - layout_properties: {grid_position: 'BSZBIG,EONFBV'}
+      name: petal_width
+      properties: {placeholder: cm}
+      type: TextBox
+    - event_bindings: {click: categorise_button_click}
+      layout_properties: {grid_position: 'PKGMIM,WAPTKT'}
+      name: categorise_button
+      properties: {text: Categorize}
+      type: Button
+    - layout_properties: {grid_position: 'OZZNTY,PSBEDR'}
+      name: species_label
+      properties: {text: '', visible: false}
+      type: Label
+    layout_properties: {grid_position: 'SXOVVZ,YPFPII'}
+    name: outlined_card_1
+    properties: {role: outlined-card}
+    type: ColumnPanel
+  layout_properties: {slot: default}
+  name: content_panel
+  properties: {col_widths: '{}'}
+  type: ColumnPanel
+- layout_properties: {slot: nav-right}
+  name: navbar_links
+  properties: {}
+  type: FlowPanel
+container:
+  properties: {html: '@theme:standard-page.html'}
+  type: HtmlTemplate
+is_package: true
