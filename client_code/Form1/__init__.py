@@ -4,27 +4,36 @@ import anvil.server
 
 class Form1(Form1Template):
   def __init__(self, **properties):
-    # The line above MUST be present and named correctly.
     self.init_components(**properties)
 
-    # Your other code here...
-
   def submitllm_click(self, **event_args):
-    """This method is called when the button is clicked"""
-    # Call the google colab function and pass it the iris measurements
-    iris_category = anvil.server.call(
-      'predict_iris', 
-      int(self.user_prompt.text),
-      int(self.llm_name.text),
-      int(self.petal_length.text),
-      int(self.petal_width.text)
-    )
+    """Called when the button is clicked"""
 
-    # If a category is returned set our species 
-    if iris_category:
+    try:
+      # Captura de inputs
+      user_prompt = self.user_prompt.text.strip()
+      llm_name = self.llm_name.selected_value.strip()
+      pl = float(self.petal_length.text) if self.petal_length.text else 0.0
+      pw = float(self.petal_width.text) if self.petal_width.text else 0.0
+
+      if not user_prompt or not llm_name:
+        raise ValueError("Prompt and LLM model must not be empty.")
+
       self.species_label.visible = True
-      self.species_label.text = "The species is " + iris_category.capitalize()
+      self.species_label.text = "Contacting LLM, please wait..."
+      print(f"📤 Calling ask_llm({user_prompt}, {llm_name}, {pl}, {pw})")
 
-  def llm_name_pressed_enter(self, **event_args):
-    """This method is called when the user presses Enter in this text box"""
-    pass
+      # Llama la función del backend
+      result = anvil.server.call('ask_llm', user_prompt, llm_name, pl, pw)
+
+      if "error" in result:
+        self.species_label.text = f"❌ Error: {result['error']}"
+      else:
+        self.species_label.text = (
+          f"🤖 LLM ({result['model']}) response:\n\n{result['response']}\n\n"
+          f"🧮 Tokens used: {result['tokens_used']}"
+        )
+    except Exception as e:
+      self.species_label.visible = True
+      self.species_label.text = f"❌ Error: {e}"
+      print(f"⚠️ Exception: {e}")

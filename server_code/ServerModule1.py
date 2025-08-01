@@ -5,38 +5,44 @@ import anvil.server
 class Form1(Form1Template):
   def __init__(self, **properties):
     self.init_components(**properties)
-    print("Client: Form initialized.")
+    print("🌐 Client: Form initialized.")
 
-  def categorise_button_click(self, **event_args):
+  def submitllm_click(self, **event_args):
     """Called when the button is clicked."""
-    # Read and validate input values
+
     try:
-      sl = float(self.sepal_length.text)
-      sw = float(self.sepal_width.text)
-      pl = float(self.petal_length.text)
-      pw = float(self.petal_width.text)
-      print(f"Client: Input values received -> SL:{sl}, SW:{sw}, PL:{pl}, PW:{pw}")
-    except ValueError:
+      # Read and validate inputs
+      user_prompt = self.user_prompt.text.strip()
+      llm_name = self.llm_name.selected_value.strip()
+      pl = float(self.petal_length.text) if self.petal_length.text else 0.0
+      pw = float(self.petal_width.text) if self.petal_width.text else 0.0
+
+      if not user_prompt or not llm_name:
+        raise ValueError("Prompt and LLM model must not be empty.")
+
+      print(f"📤 Sending to Colab: prompt='{user_prompt}', model='{llm_name}', extras={pl}, {pw}")
+    except Exception as e:
       self.species_label.visible = True
-      self.species_label.text = "Please enter valid numeric values."
-      print("Client: Invalid input values, aborting prediction.")
+      self.species_label.text = f"Input error: {e}"
+      print(f"⚠️ Input error: {e}")
       return
 
-      # Show processing message
     self.species_label.visible = True
-    self.species_label.text = "Predicting species, please wait..."
-    print("Client: Calling 'predict_iris' server function.")
+    self.species_label.text = "Generating response, please wait..."
 
     try:
-      # Call backend function exposed via Anvil Uplink (in Colab)
-      iris_category = anvil.server.call('predict_iris', sl, sw, pl, pw)
-      print(f"Client: Received prediction result: {iris_category}")
+      result = anvil.server.call('ask_llm', user_prompt, llm_name, pl, pw)
+      print("✅ Received response from backend:", result)
 
-      if iris_category:
-        self.species_label.text = f"The species is {iris_category.capitalize()}"
+      if "error" in result:
+        self.species_label.text = f"Error: {result['error']}"
       else:
-        self.species_label.text = "No result returned from model."
-        print("Client: Warning - No result returned.")
+        response_text = result["response"]
+        tokens = result["tokens_used"]
+        model = result["model"]
+
+        self.species_label.text = f"LLM ({model}) response:\n\n{response_text}\n\nTokens used: {tokens}"
+
     except Exception as e:
-      self.species_label.text = f"Error during prediction: {e}"
-      print(f"Client: Exception when calling backend: {e}")
+      self.species_label.text = f"❌ Error during backend call: {e}"
+      print(f"❌ Exception: {e}")
