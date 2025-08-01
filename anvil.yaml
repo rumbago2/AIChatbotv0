@@ -1,7 +1,8 @@
 allow_embedding: false
 correct_dependency_ids: {}
 dependencies: []
-name: Clone of Anvil_Collab
+metadata: {logo_img: 'asset:AI image 1.jpg', title: Chatbot powered with LLMs}
+name: AIChatBot
 package_name: Anvil_Collab
 renamed: true
 runtime_options:
