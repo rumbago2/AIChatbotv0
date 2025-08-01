@@ -8,8 +8,8 @@ class Form1(Form1Template):
 
     # --- Inicializa el historial y valores por defecto ---
     self.chat_history = []
-    self.llm_name.items = ["gemini-1.5-flash", "gemini-pro"]
-    self.llm_name.selected_value = "gemini-1.5-flash"
+    #self.llm_name.items = ["gemini-1.5-flash", "gemini-pro"]
+    #self.llm_name.selected_value = "gemini-1.5-flash"
 
     self.chat_display.content = ""
     self.status_label.text = ""
@@ -69,7 +69,7 @@ class Form1(Form1Template):
 
     self.chat_display.content = formatted_chat
     self.call_js('scrollRichTextToBottom', self.chat_display)
-
+    
   def clear_button_click(self, **event_args):
     """Reinicia la conversación."""
     self.chat_history = []
