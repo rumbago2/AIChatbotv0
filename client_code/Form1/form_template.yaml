@@ -20,7 +20,7 @@ components:
     - layout_properties: {grid_position: 'SRCNVM,HPZTMN'}
       name: llm_name
       properties:
-        items: [gemini-2.5-flash-preview-05-20, gemini-2.5-pro-preview-06-05, gemini-2.0-flash-lite, gemini-2.5-pro, gemini-2.5-flash, deepseek-ai/deepseek-llm-7b-instruct, Qwen/Qwen2-72B-instruct, meta-llama/Meta-Llama-3-70B-Instruct, mistralai/Mixtral-8x22B-Instruct-v0.1]
+        items: [gemini-2.5-flash-preview-05-20, gemini-2.5-pro-preview-06-05, gemini-2.0-flash-lite, gemini-2.5-pro, gemini-2.5-flash, deepseek, qwen, llama3, mistral]
       type: DropDown
     - layout_properties: {grid_position: 'CUXHBI,WMETQS'}
       name: petal_length
