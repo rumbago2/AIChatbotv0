@@ -18,6 +18,13 @@ class Form1(Form1Template):
   def user_prompt_pressed_enter(self, **event_args):
     self._handle_prompt_submission()
 
+  def llm_name_change(self, **event_args):
+    """Borra el historial de chat al cambiar de modelo"""
+    self.chat_history = []
+    self.chat_display.content = ""
+    self.status_label.text = f"🧠 Switched model to: {self.llm_name.selected_value}"
+    print(f"🔄 Model changed to: {self.llm_name.selected_value}")
+
   def _handle_prompt_submission(self):
     """Envía el prompt al LLM y actualiza el historial."""
     try:
