@@ -2,8 +2,8 @@ allow_embedding: false
 correct_dependency_ids: {}
 dependencies: []
 metadata: {logo_img: 'asset:AI image 1.jpg', title: Chatbot powered with LLMs}
-name: AIChatBot
-package_name: null
+name: AIChatBot2
+package_name: AIChatBot2
 renamed: true
 runtime_options:
   client_version: '3'
